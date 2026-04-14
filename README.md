@@ -1,69 +1,51 @@
-# Churn-Recommendation-Project
+# 📊 Customer Churn Prediction & Recommendation System
 
-Overview
+An end-to-end Machine Learning project focused on predicting customer churn, segmenting users based on risk, and generating actionable business recommendations. This project goes beyond prediction by emphasizing **interpretability, decision-making, and business impact**.
 
-Customer churn is one of the most critical problems faced by subscription-based businesses. Losing existing customers directly impacts revenue and long-term growth.
+---
 
-This project builds an end-to-end Machine Learning pipeline to:
+## 🧠 Problem Statement
 
-Predict customer churn probability
+Customer churn is a major challenge for subscription-based businesses. Losing customers directly impacts revenue and long-term growth.
 
-Segment customers into risk levels
+This project aims to:
+- Predict which customers are likely to churn  
+- Understand key factors driving churn  
+- Provide actionable recommendations to retain customers  
+- Estimate the potential business impact of retention strategies  
 
-Generate actionable retention recommendations
+---
 
-Estimate potential business impact
+## 🎯 Objectives
 
-Instead of focusing only on prediction accuracy, this project emphasizes business value, interpretability, and actionable insights.
+- Build a machine learning model to predict churn probability  
+- Identify important churn-driving features  
+- Segment customers into risk categories  
+- Generate personalized retention strategies  
+- Simulate business impact of interventions  
 
-Project Objectives
+---
 
-The main objectives of this project are:
+## 📊 Dataset
 
-Build a machine learning model to predict customer churn.
+- **Dataset**: Telco Customer Churn Dataset  
+- **Features include**:
+  - Demographics  
+  - Account information  
+  - Service usage  
+  - Billing details  
+  - Churn status (target variable)  
 
-Identify the most important factors influencing churn.
+---
 
-Segment customers based on their churn risk.
+## 🔄 Project Workflow
 
-Provide personalized recommendations to reduce churn.
-
-Simulate business impact using retention strategies.
-
-Dataset
-
-This project uses the Telco Customer Churn dataset.
-
-The dataset contains customer information including:
-
-Demographic details
-
-Account information
-
-Service usage
-
-Billing information
-
-Churn status
-
-Key Variables
-Feature	Description
-tenure	Number of months the customer stayed
-MonthlyCharges	Monthly billing amount
-TotalCharges	Total amount billed
-Contract	Contract type
-InternetService	Type of internet service
-PaymentMethod	Payment method used
-Churn	Target variable (Yes/No)
-Project Workflow
-
-The project follows a complete Machine Learning lifecycle.
-
+```
 Data Collection
 ↓
 Data Cleaning & Preprocessing
 ↓
-Exploratory Data Analysis
+Exploratory Data Analysis (EDA)
 ↓
 Feature Engineering
 ↓
@@ -80,358 +62,195 @@ Recommendation System
 Business Impact Analysis
 ↓
 Model Saving
-1. Data Collection
+```
 
-The dataset was loaded using Pandas and inspected to understand its structure.
+---
 
-Steps performed:
+## 🧹 Data Preprocessing
 
-Loaded dataset
+- Handled missing values in `TotalCharges`  
+- Removed irrelevant columns (`customerID`)  
+- Encoded categorical variables (binary + one-hot encoding)  
+- Converted target variable:
+  - Yes → 1  
+  - No → 0  
+- Standardized numerical features using **StandardScaler**  
 
-Examined dataset shape
+---
 
-Checked column names
+## 📈 Exploratory Data Analysis (EDA)
 
-Reviewed data types
+Key insights:
+- Month-to-month contracts show higher churn  
+- Higher monthly charges → higher churn probability  
+- Longer tenure → lower churn  
+- More services → lower churn risk  
 
-Identified missing values
+---
 
-Purpose:
-To understand the dataset before preprocessing.
+## ⚙️ Feature Engineering
 
-2. Data Cleaning & Preprocessing
+- **Tenure Groups**: (0–12, 13–24, 25–48, 49+)  
+- **Monthly Charge Segments**: Low / Medium / High  
+- **Service Engagement Score**:
+  - `ServiceCount = number of active services`  
 
-Data preprocessing ensures the dataset is suitable for machine learning.
+---
 
-Key steps
+## 🤖 Model Training
 
-Handling Missing Values
+- **Model Used**: Logistic Regression  
+- **Why?**
+  - Interpretable  
+  - Efficient  
+  - Suitable for binary classification  
 
-Some records contained missing values in the TotalCharges column.
-These were converted to numeric and missing values were filled.
+### ⚖️ Handling Imbalance
+- Used `class_weight = "balanced"`  
 
-Dropping Unnecessary Columns
+---
 
-The customerID column was removed because it does not provide predictive value.
+## 📊 Model Evaluation
 
-Encoding Target Variable
+| Metric     | Description                      |
+|------------|----------------------------------|
+| Accuracy   | Overall correctness              |
+| Precision  | Correct positive predictions     |
+| Recall     | Ability to detect churn          |
+| F1 Score   | Balance of precision & recall    |
+| ROC-AUC    | Overall performance              |
 
-The churn column was converted from text to numeric:
+### 📌 Results
+- **Recall** ≈ 78%  
+- **ROC-AUC** ≈ 0.83  
 
-Yes → 1
-No → 0
+---
 
-Encoding Binary Features
+## 🔍 Model Interpretation
 
-Binary categorical columns were mapped to numeric values.
+### 🚨 Key Churn Drivers
+- Month-to-month contracts  
+- High monthly charges  
+- Certain internet services  
 
-Yes → 1
-No → 0
+### ✅ Retention Indicators
+- Long-term contracts  
+- Higher tenure  
+- Higher service usage  
 
-Handling Service Columns
+---
 
-Values such as "No internet service" were mapped to 0 to simplify analysis.
+## 📊 Churn Risk Segmentation
 
-3. Exploratory Data Analysis (EDA)
+Customers are segmented based on predicted probability:
 
-Exploratory analysis helps identify patterns and relationships in the data.
+- 🔴 High Risk → ≥ 0.7  
+- 🟡 Medium Risk → ≥ 0.4  
+- 🟢 Low Risk → < 0.4  
 
-Key analyses performed:
+---
 
-Churn distribution analysis
+## 💡 Recommendation System
 
-Churn by contract type
+A rule-based engine generates actionable strategies:
 
-Churn vs tenure
+### 🔴 High Risk
+- Offer long-term contract discounts  
+- Provide pricing incentives  
+- Recommend bundled services  
 
-Churn vs monthly charges
+### 🟡 Medium Risk
+- Personalized retention campaigns  
+- Suggest additional services  
 
-Churn by service features
+### 🟢 Low Risk
+- Loyalty rewards  
+- Upsell premium services  
 
-Key Observations
+---
 
-Month-to-month customers show higher churn rates.
+## 📈 Business Impact Simulation
 
-Customers with higher monthly charges tend to churn more.
+Estimated retention impact:
 
-Customers with longer tenure have lower churn probability.
+- High Risk → 40% retention  
+- Medium Risk → 25% retention  
+- Low Risk → 10% retention  
 
-Customers using multiple services are less likely to churn.
+Outputs:
+- Expected retained customers  
+- Estimated churn reduction  
 
-EDA helps guide feature engineering and model design.
+---
 
-4. Feature Engineering
+## 💾 Model Saving
 
-Feature engineering was performed to create more meaningful predictors.
+- `churn_model.pkl`  
+- `scaler.pkl`  
 
-Tenure Group
+Saved using **Joblib** for future predictions.
 
-Customers were grouped by tenure length:
+---
 
-0-12 months
-13-24 months
-25-48 months
-49+ months
+## 🚀 Tech Stack
 
-This helps capture customer lifecycle stages.
+- **Language**: Python  
+- **Data Processing**: Pandas, NumPy  
+- **Visualization**: Matplotlib, Seaborn  
+- **Machine Learning**: Scikit-learn  
+- **Model Saving**: Joblib  
 
-Monthly Charge Group
+---
 
-Monthly charges were segmented into:
+## 📂 Project Structure
 
-Low
-Medium
-High
-
-This represents pricing tiers.
-
-Service Engagement Score
-
-A new feature called ServiceCount was created.
-
-It represents the number of services a customer uses.
-
-ServiceCount = Sum of service features
-
-Customers using more services typically show stronger engagement and lower churn risk.
-
-5. Feature Selection
-
-After feature engineering, some raw columns were removed because their information was already captured by engineered features.
-
-Examples:
-
-tenure
-
-MonthlyCharges
-
-Individual service columns
-
-This reduces redundancy and improves model generalization.
-
-6. Encoding Categorical Variables
-
-Machine learning models require numerical input.
-
-Categorical columns were converted using One-Hot Encoding.
-
-Example:
-
-Contract
-Month-to-month
-One year
-Two year
-
-becomes
-
-Contract_OneYear
-Contract_TwoYear
-
-To avoid multicollinearity, the first category was dropped.
-
-7. Train-Test Split
-
-The dataset was split into training and testing sets.
-
-80% Training Data
-20% Testing Data
-
-Stratified splitting was used to preserve class distribution.
-
-8. Feature Scaling
-
-StandardScaler was applied to standardize numerical features.
-
-Standardization ensures features have:
-
-Mean = 0
-
-Standard deviation = 1
-
-This is important for models like Logistic Regression.
-
-9. Model Training
-
-A Logistic Regression model was used as the baseline model.
-
-Why Logistic Regression?
-
-Interpretable
-
-Efficient
-
-Works well for binary classification
-
-Handling Class Imbalance
-
-The dataset was imbalanced, so class weighting was applied:
-
-class_weight = "balanced"
-
-This prevents the model from favoring the majority class.
-
-10. Model Evaluation
-
-The model was evaluated using several metrics.
-
-Metrics Used
-Metric	Purpose
-Accuracy	Overall correctness
-Precision	Correct positive predictions
-Recall	Ability to detect churn
-F1 Score	Balance between precision & recall
-ROC-AUC	Overall classification performance
-Results
-Recall ≈ 78%
-ROC-AUC ≈ 0.83
-
-These results indicate good churn detection capability.
-
-11. Model Interpretation
-
-Logistic regression coefficients were analyzed to identify:
-
-Top Churn Drivers
-
-Examples:
-
-Month-to-month contracts
-
-High monthly charges
-
-Certain internet services
-
-Retention Indicators
-
-Examples:
-
-Long-term contracts
-
-Higher tenure
-
-Higher service engagement
-
-Understanding these factors helps design retention strategies.
-
-12. Churn Risk Segmentation
-
-Predicted churn probabilities were converted into risk levels.
-
-High Risk   → probability ≥ 0.7
-Medium Risk → probability ≥ 0.4
-Low Risk    → probability < 0.4
-
-This makes the model easier to use for business decision making.
-
-13. Recommendation System
-
-A rule-based recommendation engine was developed to generate customer-specific actions.
-
-Example Recommendations
-
-High Risk Customers:
-
-Offer long-term contract discounts
-
-Provide monthly charge discounts
-
-Recommend service bundles
-
-Encourage auto-pay enrollment
-
-Medium Risk Customers:
-
-Send personalized retention campaigns
-
-Suggest additional services
-
-Low Risk Customers:
-
-Offer loyalty rewards
-
-Upsell premium services
-
-14. Business Impact Simulation
-
-Retention success rates were assumed for each risk segment:
-
-High Risk → 40%
-Medium Risk → 25%
-Low Risk → 10%
-
-Using these assumptions, the model estimates:
-
-Expected retained customers
-
-Potential churn reduction percentage
-
-This step connects machine learning predictions with business outcomes.
-
-15. Model Saving
-
-The trained model and scaler were saved using Joblib.
-
-churn_model.pkl
-scaler.pkl
-
-This allows future predictions without retraining the model.
-
-Technologies Used
-
-Python
-
-Pandas
-
-NumPy
-
-Matplotlib
-
-Seaborn
-
-Scikit-learn
-
-Joblib
-
-Project Structure
-churn-prediction-project
+```bash
+churn-prediction-project/
 │
-├── data
-│   ├── raw
-│   └── processed
+├── data/
+│   ├── raw/
+│   └── processed/
 │
-├── notebooks
+├── notebooks/
 │   ├── data_preprocessing.ipynb
 │   └── model_training.ipynb
 │
-├── models
+├── models/
 │   ├── churn_model.pkl
 │   └── scaler.pkl
 │
 ├── README.md
-Key Takeaways
+```
 
-This project highlights that Machine Learning models should not stop at prediction accuracy.
+---
 
-Real value comes from:
+## 🔑 Key Takeaways
 
-Model interpretability
+- ML is not just about accuracy  
+- Real value comes from:
+  - Interpretability  
+  - Business alignment  
+  - Actionable insights  
+  - Impact estimation  
 
-Business alignment
+---
 
-Actionable recommendations
+## 🔮 Future Improvements
 
-Impact estimation
+- Try advanced models (Random Forest, XGBoost)  
+- Perform hyperparameter tuning  
+- Deploy model using APIs (Flask / FastAPI)  
+- Build an interactive dashboard  
 
-Combining predictive analytics with business strategy creates practical and scalable solutions.
+---
 
-Future Improvements
+## ⚡ Author
 
-Potential improvements include:
+**Aryan Singh Rajput**  
+End-to-End ML Project | Data Science & AI Enthusiast  
 
-Testing additional models (Random Forest, XGBoost)
+---
 
-Hyperparameter tuning
+## ❤️ About
 
-Deploying the model using APIs
-
-Building a dashboard for churn monitoring
+This project focuses on solving a real-world business problem by combining **Machine Learning with strategic decision-making**, making it practical, scalable, and industry-relevant.
